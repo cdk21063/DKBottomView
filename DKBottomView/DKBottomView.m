@@ -70,7 +70,7 @@
     closeImgView.contentMode = UIViewContentModeCenter;
     
     closeImgView.userInteractionEnabled = 1;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeImgViewClick)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeClick)];
     
     [closeImgView addGestureRecognizer:tap];
     
@@ -84,8 +84,11 @@
 }
 
 //关闭按钮点击
-- (void)closeImgViewClick{
-    
+- (void)closeClick{
+    if ([self.delegate respondsToSelector:@selector(closeWithParams:)]) {
+        [self.delegate closeWithParams:nil];
+
+    }
     [self remove];
     
 }
@@ -94,11 +97,12 @@
 - (void)confirmBtnClick{
     
     if ([self.delegate respondsToSelector:@selector(confirmBtnClickWithParams:)]) {
-        __weak __typeof(self) weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [weakSelf.delegate confirmBtnClickWithParams:nil];
-        });
+        [self.delegate confirmBtnClickWithParams:nil];
+//        __weak __typeof(self) weakSelf = self;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//            [weakSelf.delegate confirmBtnClickWithParams:nil];
+//        });
     }
     
     [self remove];
@@ -120,6 +124,7 @@
         self.container.frame = CGRectMake(0, ([UIScreen mainScreen].bounds.size.height), ([UIScreen mainScreen].bounds.size.width), self.containerH);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        
     }];
 }
 #pragma mark - Lazy
@@ -143,7 +148,7 @@
     if (!_bgBtn) {
         _bgBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         
-        [_bgBtn addTarget:self action:@selector(remove) forControlEvents:UIControlEventTouchUpInside];
+        [_bgBtn addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
         
         _bgBtn.backgroundColor = [UIColor blackColor];
         _bgBtn.alpha = 0;

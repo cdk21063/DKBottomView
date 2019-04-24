@@ -17,8 +17,13 @@
 @protocol DKBottomViewDelegate<NSObject>
 
 @optional
-//确认按钮点击代理方法,可以自己添加需要的代理方法
+//消失代理方法
+- (void)closeWithParams:(NSDictionary *)params;
+
+//确认按钮点击代理方法
 - (void)confirmBtnClickWithParams:(NSDictionary *)params;
+
+//可以自己添加需要的代理方法
 @end
 
 @interface DKBottomView : UIView

@@ -24,4 +24,7 @@
 -(void)confirmBtnClickWithParams:(NSDictionary *)params{
     NSLog(@"confirmBtnClick");
 }
+-(void)closeWithParams:(NSDictionary *)params{
+    NSLog(@"closeWithParams");
+}
 @end
