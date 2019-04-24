@@ -1,4 +1,5 @@
 # DKBottomView
+
 通用的底部弹窗
 1.独立低耦合
 2.自定义容器内容
@@ -10,4 +11,5 @@ https://github.com/cdk21063/DKBottomView/blob/master/DKBottomView/images/fc832f7
 使用方法:
 1.手动导入DKBottomView.h和DKBottomView.m  
 2.[DKBottomView showWithParams:nil delegate:self];  
+
 
